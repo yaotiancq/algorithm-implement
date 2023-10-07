@@ -3,12 +3,14 @@ import time
 
 
 def generateRandomNumbers(n):
+    """Return a list of n random numbers in range [1, n+1]"""
     if n <= 0:
         return []
-    random_numbers = [random.randint(1, 1000) for _ in range(n)]
+    random_numbers = [random.randint(1, n+1) for _ in range(n)]
     return random_numbers
 
 def insertionSort(arr):
+    """Return the sorted array by using insertion sort algorithm"""
     for i in range(1, len(arr)):
         current_element = arr[i]
         j = i - 1
@@ -19,6 +21,7 @@ def insertionSort(arr):
     return arr
 
 def quickSelect(arr, k):
+    """Return the kth smallest element in arr by using quick select algorithm based on median of medians"""
     if len(arr) == 1:
         return arr[0]
     # Divide into groups of five and calculate the median of each group
@@ -39,16 +42,18 @@ def quickSelect(arr, k):
         return quickSelect(greater, k - len(less) - len(equal))
 
 def timeCnt(fun,generateRandomNumbers,n):
+    """calculate the average time of running fun fuction"""
     res=[]
     for i in range(100):
-        A=generateRandomNumbers(n)
+        arr=generateRandomNumbers(n)
         start=time.time()
-        fun(A,n//2)
+        fun(arr,n//2)
         end=time.time()
         res.append(end-start)
     return sum(res)/100
 
 def run():
+    """run the program"""
     for i in [i*10000 for i in range(1,15)]:
         print(timeCnt(quickSelect,generateRandomNumbers,i))
 
